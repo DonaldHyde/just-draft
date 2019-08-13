@@ -1,0 +1,39 @@
+{
+    "id": "<userId>",
+    "username": "bind_operator",
+    "email": "donald.hyde2@gmail.com",
+    "password": "<ecnrypted_password>",
+    "created_at": "<date_time>",
+    "projects": [
+        {
+            "name": "My First Novel",
+            "id": "<projectId>",
+            "created_at": "<date_time>",
+            "files": [
+                {
+                    "name": "Chapter One",
+                    "id": "<fileId>",
+                    "created_at": "<date_time>",
+                    "word_count": 1200,
+                    "asset_url": "aws/folder/file.txt"
+                },
+                {
+                    "name": "Chapter Two",
+                    "id": "<fileId>",
+                    "created_at": "<date_time>",
+                    "word_count": 1030,
+                    "asset_url": "aws/folder/file2.txt"
+                }
+            ]
+        }
+    ]
+}
+
+mongodb user: lambda_users_access
+mongodb user password: H4ba5nmU7VdcixqM
+
+URI Connection String: mongodb+srv://lambda_users_access:H4ba5nmU7VdcixqM@justdraft0-jdpmq.mongodb.net/test?retryWrites=true&w=majority
+
+lambda-local -l app.js -e event.json -E {\"MONGODB_ATLAS_CLUSTER_URI\":\"mongodb+srv://lambda_users_access:H4ba5nmU7VdcixqM@justdraft0-jdpmq.mongodb.net/test?retryWrites=true\&w=majority\"}
+
+curl -X POST --user 5nmps8i313dlkb7u4gd4ibdaev:f2f025292erh06jv39feavug5jll3ocstoelf8clmhpg58mkmqa 'https://just-draft.auth.us-east-1.amazoncognito.com/oauth2/token?grant_type=client_credentials' -H 'Content-Type: application/x-www-form-urlencoded'

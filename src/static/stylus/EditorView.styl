@@ -1,0 +1,73 @@
+@keyframes cursor-blink
+  0%
+    opacity:1
+  25%
+    opacity:0
+  50%
+    opacity:0
+  75%
+    opacity:1
+  100%
+    opacity:1
+
+@keyframes cursor-blink-empty
+  0%
+    opacity:0.5
+  25%
+    opacity:0
+  50%
+    opacity:0
+  75%
+    opacity:0.5
+  100%
+    opacity:0.5
+
+.EditorView
+    margin auto
+    width 500px
+    margin-top 20px
+
+    span
+      color #575515
+
+    .writable-area
+        width 500px
+        padding 10px 0
+        font-family 'Space Mono'
+        font-size 18px
+        color #575515
+        margin auto
+        word-break normal
+        overflow-wrap break-word
+        white-space pre-wrap
+        text-align left
+        margin-top 10px
+    
+        &:empty
+            &:before
+                content "Please begin typing..."
+                opacity 0.5
+
+            &:after
+                animation cursor-blink-empty 1.2s infinite
+
+        &:after
+            content ""
+            width 10.8px
+            height 18px
+            background #575515
+            position relative
+            display inline-flex
+            top 4px
+            animation cursor-blink 1.2s infinite
+            white-space pre-wrap
+
+    .downloader-button
+        display block
+        margin auto
+        margin-bottom 15px
+        width 100px
+        height 25px
+        border 1px solid #cccccc
+        border-radius 2px
+        font-family inherit
