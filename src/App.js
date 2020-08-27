@@ -96,7 +96,7 @@ class App extends React.Component {
       console.log(error)
       this.sandbox.app.setAuthState({
         isAuthenticated: false,
-        // isAuthenticating: true,
+        isAuthenticating: false,
         user: null,
         sessionToken: null
       })
@@ -112,7 +112,7 @@ class App extends React.Component {
     this.sandbox.state = this.state
     return (
       !this.state.auth.isAuthenticating && (
-        <BrowserRouter>
+        <BrowserRouter basename={process.env.PUBLIC_URL} >
           <div className="app">
             <Switch>
               <Route
