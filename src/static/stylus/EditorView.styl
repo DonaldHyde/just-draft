@@ -10,64 +10,89 @@
   100%
     opacity:1
 
-@keyframes cursor-blink-empty
-  0%
-    opacity:0.5
-  25%
-    opacity:0
-  50%
-    opacity:0
-  75%
-    opacity:0.5
-  100%
-    opacity:0.5
-
 .EditorView
+  position absolute
+  width 100%
+  height 100%
+  background #D6CA82
+
+  header
+    color: #D6CA82
+    background #575515
+
+    .app-title
+        font-size 36px
+        line-height 64px
+        text-align center
+
+    nav
+      width 500px
+      margin auto
+      display flex
+      align-items center
+      justify-content space-around
+
+      span
+        text-align center
+        padding 5px 10px
+        cursor pointer
+
+        &.active
+          background #D6CA82
+          color #575515
+          font-weight bold
+          border-top-left-radius 2px
+          border-top-right-radius 2px
+
+  main
+    max-width 750px
+    width 100%
     margin auto
-    width 500px
-    margin-top 20px
+    margin-top 16px
 
-    span
+    .word-count
+      width 100%
+      text-align right
       color #575515
-
-    .writable-area
-        width 500px
-        padding 10px 0
-        font-family 'Space Mono'
-        font-size 18px
-        color #575515
-        margin auto
-        word-break normal
-        overflow-wrap break-word
-        white-space pre-wrap
-        text-align left
-        margin-top 10px
     
-        &:empty
-            &:before
-                content "Please begin typing..."
-                opacity 0.5
+    .writable-area
+      margin-top 64px
+      width 100%
+      height 318px
+      overflow scroll
+      font-family 'monaco'
+      font-size 18px
+      line-height 24px
+      color #575515
+      word-break normal
+      overflow-wrap break-word
+      white-space pre-wrap
+      text-align left
+      box-sizing border-box
+      padding 3px 10px
+      background rgba(255,255,255,0.2)
+      border-radius 2px
 
-            &:after
-                animation cursor-blink-empty 1.2s infinite
-
-        &:after
-            content ""
-            width 10.8px
-            height 18px
-            background #575515
-            position relative
-            display inline-flex
-            top 4px
-            animation cursor-blink 1.2s infinite
-            white-space pre-wrap
+      &:after
+        content ""
+        width 10.8px
+        height 18px
+        background #575515
+        position relative
+        display inline-flex
+        top 4px
+        animation cursor-blink 1.2s infinite
+        white-space pre-wrap
 
     .downloader-button
-        display block
-        margin auto
-        margin-bottom 15px
-        width 100px
-        height 25px
-        border 1px solid #cccccc
-        border-radius 2px
-        font-family inherit
+      display block
+      margin auto
+      margin-bottom 15px
+      margin-top 24px
+      padding 10px 20px
+      border none
+      background #575515
+      color #D6CA82
+      border-radius 2px
+      font-size 16px
+      cursor pointer

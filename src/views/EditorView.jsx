@@ -1,62 +1,42 @@
-import React from 'react'
+import React, { useState, useEffect } from 'react'
 
 import '../static/css/EditorView.css'
 
-import { Header } from '../components/Header'
+import { WordCount } from '../components/WordCount'
+import { ContentOutput } from '../components/ContentOutput'
+import { DownloadButton } from '../components/DownloadButton'
 
-import { WritableArea } from '../components/WritableArea'
-// import { Downloader } from "../components/Downloader"
+// TODO: Cleanup, implement the return character, deliberate user input strategy
+function EditorView(props) {
+  const [content, setContent] = useState('')
+  const [fileName, setFileName] = useState(props.fileName)
 
-// TODO: Cleanup, implement the return character, uploading, debnounce
+  const localStorage = window.localStorage
 
-class EditorView extends React.Component {
-  state = {
-    isFetching: true,
-    content: '',
-    fileName: '',
-  }
+  useEffect(() => {
+    setContent(localStorage.getItem(`_jd_${fileName}`) || '')
+  })
 
-  // Feels clunky
-  async componentDidMount() {
-    try {
-      const projectId = this.props.match.params.id
-      const fileId = this.props.match.params.fileId
+  useEffect(() => {
+    document.addEventListener('keydown', handleKeystroke)
 
-      let fileData = await this.props.sb.ajax.getFileData(fileId)
-      let content = await this.props.sb.ajax.getFileContent(
-        fileData[0].asset_url
-      )
-
-      this.setState({
-        isFetching: false,
-        content: content.content,
-        fileName: fileData[0].name,
-      })
-    } catch (err) {
-      console.log('Error: ', err)
+    return () => {
+      document.removeEventListener('keydown', handleKeystroke)
     }
-  }
+  })
 
-  componentWillMount() {
-    document.addEventListener('keydown', this.handleKeystroke)
-  }
-
-  componentWillUnmount() {
-    document.removeEventListener('keydown', this.handleKeystroke)
-  }
-
-  handleKeystroke = (e) => {
+  function handleKeystroke(e) {
     let key = e.key
 
     if (key.length === 1 && !e.altKey && !e.ctrlKey && !e.metaKey) {
-      if (/[a-zA-z1-9.,/#!$%^&*;:{}=\-_`~()@\W]/.test(key)) {
-        this.addCharacter(key)
+      if (/[a-zA-z0-9.,/#!$%^&*;:{}=\-_`~()@\W]/.test(key)) {
+        addCharacter(key)
       }
     } else {
       switch (key) {
         case 'Backspace':
           e.preventDefault()
-          this.deleteCharacter()
+          deleteCharacter()
           break
         case 'Enter':
           e.preventDefault()
@@ -67,41 +47,56 @@ class EditorView extends React.Component {
     }
   }
 
-  addCharacter = (key) => {
-    const currentStateContent = this.state.content
-
-    this.setState({
-      content: currentStateContent + key,
-    })
+  const addCharacter = (key) => {
+    const newContent = content + key
+    setContent(newContent)
+    localStorage.setItem(`_jd_${fileName}`, newContent)
   }
 
-  deleteCharacter() {
-    const currentStateContent = this.state.content
-
-    this.setState({
-      content: currentStateContent.substring(0, currentStateContent.length - 1),
-    })
+  const deleteCharacter = () => {
+    const newContent = content.substring(0, content.length - 1)
+    setContent(newContent)
+    localStorage.setItem(`_jd_${fileName}`, newContent)
   }
 
-  render() {
-    if (!this.props.sb.state.auth.isAuthenticated) {
-      this.props.history.push('/login')
+  function handleClick(e) {
+    setFileName(e.target.dataset.filename)
+  }
+
+  function getNav() {
+    const navItems = []
+
+    for (let i = 1; i < 6; i++) {
+      navItems.push(
+        <span
+          key={i}
+          data-filename={`file${i}`}
+          className={fileName === `file${i}` ? 'active' : ''}
+          onClick={handleClick}
+        >
+          {`File ${i}`}
+        </span>
+      )
     }
-    return (
-      <React.Fragment>
-        <Header {...this.props} />
-        <div className="EditorView">
-          {!this.state.isFetching && (
-            <React.Fragment>
-              <span>{this.state.fileName}</span>
-              <WritableArea textContent={this.state.content} />
-              {/* <Downloader textContent={this.state.content} /> */}
-            </React.Fragment>
-          )}
-        </div>
-      </React.Fragment>
-    )
+
+    return <nav>{navItems}</nav>
   }
+
+  return (
+    <React.Fragment>
+      <div className="EditorView">
+        <header>
+          <div className="app-title">Just Draft</div>
+          {getNav()}
+        </header>
+        <main>
+          <WordCount textContent={content} />
+          <ContentOutput textContent={content} />
+          <DownloadButton fileName={fileName} textContent={content} />
+        </main>
+      </div>
+    </React.Fragment>
+  )
 }
 
 export { EditorView }
