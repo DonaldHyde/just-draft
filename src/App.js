@@ -4,7 +4,7 @@ import { EditorView } from './views/EditorView'
 import './static/css/App.css'
 
 function App() {
-  return <EditorView fileName={'file1'} />
+  return <EditorView />
 }
 
 export default App

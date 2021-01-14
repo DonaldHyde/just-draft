@@ -9,7 +9,7 @@ import { DownloadButton } from '../components/DownloadButton'
 // TODO: Cleanup, implement the return character, deliberate user input strategy
 function EditorView(props) {
   const [content, setContent] = useState('')
-  const [fileName, setFileName] = useState(props.fileName)
+  const [fileName, setFileName] = useState(props.fileName || 'file1')
 
   const localStorage = window.localStorage
 
