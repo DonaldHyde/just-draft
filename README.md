@@ -26,7 +26,7 @@ But not up in here. You take that sh\*t somewhere else.
 
 Here, you're only allowed to do one thing. So shut up and
 
-[Just Draft](donaldhyde.com/just-draft)
+[Just Draft](https://donaldhyde.com/just-draft)
 
 <!-- ## About Just Draft
 
