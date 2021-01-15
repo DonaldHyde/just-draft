@@ -10,7 +10,7 @@ This is intentional.
 
 Without the ability to easily go back and edit, you will be free to ignore the critic inside of you and just
 
-Get. Work. Done.
+## Get. Work. Done.
 
 Working on your NaNoWriMo entry? Trying to take your daily word count to the next level?
 
@@ -40,30 +40,29 @@ this software based around the AlphaSmart devices, especially their simple file 
 files, each capable of holding around 25 pages of text (it's memory restricted), so I decided to take the
 easiest route to start and leverage local storage to hold the text. This removes my need to develop a back-end
 system, with the tradeoff being that my software really can't protect your work.
+-->
 
-## Things I'm working on:
+Developer Note: This is an unfinished piece of software
 
-Turn the nav items into a list
+## Known Issues
 
-Deliberate the implementation of user input
+- Missing support for carriage returns
 
-- Key events, hidden textfield or input, or something else?
-- Data management in the app: is there a better way (or many)?
+## Things I'm planning on adding:
 
-Clean up the code a bit more
+- Support for the return character
+- Download all files at once
+  - Single or multiple files?
+- User preferences
+  - Open in last used file
+  - Color options/themes
+- Hide the nav while typing (fade out, maybe)
+- Word count goals, words per minute (and goals)
 
-Return character (and deleting it)
+## Things I'm considering
 
-Should I implement a less restrictive editing expeience that allows editing?
+Currently I'm using a simple keystroke handler to record input, adding each new character to the file when the given key is pressed--both in the local storage in an React state--and rendering it to the page.
 
-Colors (an update or theme options)
+That is a simple way to restrict editing but I used this method simply because while I was tinkering with this idea in the pre-development stage it's how I implemented input, so I just stuck with it and haven't given it much more thought since.
 
-User preferences to store in the local storage
-
-Word count goals, words per minute (and goals)
-
-Maybe some place to put notes? Like a side bar for your outline?
-
-Hide nav while typing
-
-Download all files -->
+In addition to that, I'm considering implementing more options for editing, making it less restrictive.
